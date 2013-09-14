@@ -1,0 +1,17 @@
+{
+	"name": "underscore05/simplemvc",
+	"authors": [
+		{
+			"name": "Richard",
+			"email": "roquerichardneil@gmail.com"
+		}
+	],
+	"minimum-stability": "dev",
+	"require": {
+	},
+	"autoload": {
+		"psr-0": {
+			"base": "./"
+		}
+	}
+}
