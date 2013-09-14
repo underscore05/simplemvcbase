@@ -1,21 +1,9 @@
 {
-	"repositories":[
-		{
-			"type": "package",
-			"package":{
-				"name": "underscore05/simplemvcbase",
-			    "version": "1.0",
-				"source": {
-					"type": "git",
-					"reference": "master",
-					"url": "git@github.com:underscore05/simplemvcbase.git"
-				},
-				"autoload": {
-					"psr-0": {
-						"base": "./"
-					}
-				}
-			}
+	"name": "underscore05/simplemvcbase",
+    "version": "1.0",
+	"autoload": {
+		"psr-0": {
+			"base": "./"
 		}
-	]
+	}
 }
