@@ -1,4 +1,2 @@
-simplemvcbase
-=============
-
-Base package for SimpleMVC
+Simple MVC Base Package
+==========================
