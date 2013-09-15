@@ -1,7 +1,9 @@
 Simple MVC Base Package
 ==========================
 
-Create composer.json inside your project folder then type inside it.
+Create composer.json and run php composer.phar install
+
+Example composer.json
 ------------------------------------------------------------------------------
 	{
 		"repositories":[
@@ -14,6 +16,5 @@ Create composer.json inside your project folder then type inside it.
 			"underscore05/simplemvcbase":"@dev"
 		}
 	}
-------------------------------------------------------------------------------
 
-run composer.phar inside your project folder.
+
