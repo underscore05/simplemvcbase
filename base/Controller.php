@@ -38,4 +38,9 @@ class Controller{
 			return $this->_views[$tplName];
 		}		
 	}
+	
+	public function getProfile() 
+	{
+		return "Profile";
+	}
 }
