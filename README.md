@@ -16,5 +16,3 @@ Example composer.json
 			"underscore05/simplemvcbase":"@dev"
 		}
 	}
-
-
