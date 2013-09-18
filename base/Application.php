@@ -7,22 +7,26 @@ class Application
 	public function process(Request $req)
 	{
 		$httpMethod = $req->getHttpMethod();
-		$controllerId = $req->getControllerId('user');
+		$controllerId = $req->getControllerId('users');
 		$methodId = $req->getMethodId();				
-		$controllerNs = "\\app\\controllers\\{$controllerId}";				
-		
-		$controller = new $controllerNs();		
+		$controllerNs = "\\app\\controllers\\{$controllerId}";		
+		$controller = new $controllerNs();
 		$method = $httpMethod.$methodId;
 		
-		if(!method_exists($controller, $method)) {			
-			//TODO Implement HTTP Error message
-				header('HTTP/1.1 404');		
-				header('Cache-Control: no-cache, must-revalidate');				
-				throw new \BadMethodCallException("Page not found");
-				die();			
+		if(!method_exists($controller, $method)) {
+			throw new \BadMethodCallException("public function {$method}() not found in class ".$controllerNs);				
 		} else {
-			$res = $controller->{$method}();	
-		}
+			$res = $controller->{$method}();
+			if($res instanceOf Response) {
+				if($controller->layout) {
+					$layout = new View(APP_PATH.DS."layouts".DS.$controller->layout.".php");
+					$layout->setVar('content', $res->getView());
+					$res->setView($layout);
+				}
+			} else if ($res instanceOf View) {
+				
+			}
+		}		
 		return $res;
 	}
 }

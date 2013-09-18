@@ -4,10 +4,11 @@ namespace base;
 
 class Controller{
 	
-	private $_views = array();
+	protected $_views = array();
 	private $_res = null;
 	private $_req = null;
-	public $currentPath = null;
+	
+	public $layout = "main";		
 	
 	protected function getRequest()
 	{
@@ -23,20 +24,23 @@ class Controller{
 	}
 	
 	protected function getView($tplName, $isNew = false)
-	{
-		if(!$isNew && !empty($this->_views[$tplName])) {
+	{	
+		if(empty($this->currentPath) || empty($this->className)) {
+			$class_info = new \ReflectionClass($this);
+			$this->currentPath = dirname($class_info->getFileName());
+			$this->className = $class_info->getShortName();
+		}	
+		$tplName = APP_PATH.DS."views".DS.$this->className.DS."{$tplName}.php";
+				
+		if(!$isNew && $this->_views[$tplName] instanceOf View) {
 			return $this->_views[$tplName];
 		} else {			
-			if(empty($this->currentPath) || empty($this->className)) {
-				$class_info = new \ReflectionClass($this);
-				$this->currentPath = dirname($class_info->getFileName());
-				$this->className = $class_info->getShortName();
-			}
-			$ds = DIRECTORY_SEPARATOR;
-			$tplName = $this->currentPath.$ds.$this->className.'.Views'.$ds."{$tplName}.php";
 			$this->_views[$tplName] = new View($tplName);
 			return $this->_views[$tplName];
 		}		
 	}
-		
+	
+	public function getIndex() {
+		return "This getIndex function should be overriden by child class";
+	}
 }

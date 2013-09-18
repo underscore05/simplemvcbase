@@ -4,11 +4,14 @@ namespace base;
 
 class View 
 {
-	
+		
 	private $_vars = array();
 	
 	public function __construct($tpl, Controller $context=null)
 	{		
+		if(!file_exists($tpl)) {
+			throw new \Exception("Cannot find file {$tpl}");
+		}
 		$this->_tpl = $tpl;
 	}
 	
@@ -27,11 +30,15 @@ class View
 			throw new \InvalidArgumentException();    	
 		}
 		$this->_vars = array_merge($this->_vars, $vars);
-  }
+	}
 
 	public function fetch()
-	{		
-		$viewVars = $this->_vars;
+	{
+		foreach($this->_vars as $key => $var) {
+			if($var instanceOf View) {
+				$this->_vars[$key] = $var->fetch();
+			}
+		}		
 		extract($this->_vars);        
 		ob_start();
 		require $this->_tpl;
@@ -39,4 +46,8 @@ class View
 		return $str;
 	}
 	
+	public function __toString() 
+	{
+		return $this->fetch();
+	}
 }

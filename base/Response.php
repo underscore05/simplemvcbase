@@ -27,9 +27,10 @@ class Response {
 		$this->_view = $view;
 	}
 	
+	
 	public function __toString()
 	{
-		if($this->_view){
+		if($this->_view instanceOf View){
 			return $this->_view->fetch();		
 		} else {
 			return "I came from Response Object. My Format is dependent on Response type";
